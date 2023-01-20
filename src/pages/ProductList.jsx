@@ -45,11 +45,12 @@ export default function ProductPage() {
       > */}
         Fetch Data
       </button>
-      # First Last Email Age ContactNumber DOB
-      <table class="table table-striped">
+      <h3>Products list from API</h3>
+      <table className="table">
         <thead>
           <tr>
-            <th scope="col">id</th>
+            <th scope="col">Id</th>
+            <th scope="col"></th>
             <th scope="col">First</th>
             <th scope="col">Last</th>
             <th scope="col">Email</th>
@@ -62,9 +63,15 @@ export default function ProductPage() {
         {product &&
           product.map((items) => {
             return (
-              <tbody>
-                <tr key={items.id}>
+              <tbody key={items.id}>
+                <tr>
                   <th scope="row">{items.id}</th>
+                  <td>
+                    <img
+                      style={{ height: "50px", width: "50px" }}
+                      src={items.imageUrl}
+                    />
+                  </td>
                   <td>{items.firstName}</td>
                   <td>{items.lastName}</td>
                   <td>{items.email}</td>

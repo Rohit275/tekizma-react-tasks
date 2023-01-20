@@ -8,6 +8,7 @@ import NewMeetupsPage from "./pages/NewMeetup";
 import FavoritesPage from "./pages/Favorites";
 import Navbar from "./components/Navbar";
 import ProductPage from "./pages/ProductList";
+import MeetupItem from "./components/Meetups/MeetupItems";
 
 function App() {
   return (
@@ -17,21 +18,22 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="m-2">
-              <h1
-                style={{
-                  display: "flex",
-                  marginBottom: "20px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                My Todo
-              </h1>
-              <Todo title="Buy sugar" content="Buy 1 kg of sugar from shop" />
-              <Todo title="Meet John" content="Meet at 5pm" />
-              <Todo title="Take meds" content="Take meds at 10pm" />
-            </div>
+            // <div className="m-2">
+            //   <h1
+            //     style={{
+            //       display: "flex",
+            //       marginBottom: "20px",
+            //       justifyContent: "center",
+            //       alignItems: "center",
+            //     }}
+            //   >
+            //     My Todo
+            //   </h1>
+            //   <Todo title="Buy sugar" content="Buy 1 kg of sugar from shop" />
+            //   <Todo title="Meet John" content="Meet at 5pm" />
+            //   <Todo title="Take meds" content="Take meds at 10pm" />
+            // </div>
+            <MeetupItem />
           }
         />
         <Route path="/all-meetups" element={<AllMeetupsPage />} />
