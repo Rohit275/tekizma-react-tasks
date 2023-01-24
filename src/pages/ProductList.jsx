@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default function ProductPage() {
   const [product, setProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [fetchData, setFetchData] = useState(false);
 
   // useEffect(() => {
@@ -21,10 +22,19 @@ export default function ProductPage() {
         .get("https://hub.dummyapis.com/employee?noofRecords=10&idStarts=1001")
         .then((res) => {
           console.log(res.data);
+          setIsLoading(false);
           setProduct(res.data);
         });
     }
   }, [fetchData]);
+
+  // if (isLoading) {
+  //   return (
+  //     <section>
+  //       <h2>Loading...</h2>
+  //     </section>
+  //   );
+  // }
 
   return (
     <div>
@@ -70,6 +80,7 @@ export default function ProductPage() {
                     <img
                       style={{ height: "50px", width: "50px" }}
                       src={items.imageUrl}
+                      alt={items.id}
                     />
                   </td>
                   <td>{items.firstName}</td>
