@@ -40,15 +40,7 @@ function MeetupItem(props) {
             <div className="box">
               <div className="row">
                 <div className="cell" style={{ width: "30%" }}>
-                  <img
-                    src={data.image}
-                    alt="img-dt"
-                    style={{
-                      borderRadius: "50%",
-                      height: "250px",
-                      width: "250px",
-                    }}
-                  />
+                  <img className="banner" src={data.image} alt="img-dt" />
                 </div>
                 <div className="cell" style={{ width: "60%" }}>
                   <h3>{data.title}'s Meet</h3>

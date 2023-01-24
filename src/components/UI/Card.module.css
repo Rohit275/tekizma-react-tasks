@@ -25,3 +25,13 @@ button {
   border-radius: 5px !important;
   align-items: center;
 }
+
+@media screen and (max-width: 990px) {
+  /* .card {
+    width: 70%;
+  } */
+
+  .container {
+    padding: 5px 8px;
+  }
+}

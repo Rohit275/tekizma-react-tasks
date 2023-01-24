@@ -10,8 +10,21 @@
   /* flex-wrap: wrap; */
 }
 
+.banner {
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+}
+
 @media screen and (max-width: 990px) {
   .row {
     flex-direction: column;
+    transition-delay: 2s;
+    /* justify-content: center; */
+  }
+  .banner {
+    height: 200px;
+    width: 200px;
+    transition: width 2s, height 2s;
   }
 }
