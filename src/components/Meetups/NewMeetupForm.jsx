@@ -17,7 +17,13 @@ export default function MeetupsForm({ onAddMeetup }) {
 
     const meetupData = { title, image, address, description };
 
-    // console.log(meetupData);
+    // const empData = {
+    //   firstName: "Lionel",
+    //   lastName: "Messi",
+    //   email: "messi@mail.com",
+    // };
+
+    console.log(meetupData);
     onAddMeetup(meetupData);
   }
 

@@ -6,25 +6,14 @@ export default function ProductPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [fetchData, setFetchData] = useState(false);
 
-  // useEffect(() => {
-  //   if(fetchData) {
-
-  //   }
-
-  //   return () => {
-  //     second
-  //   }
-  // }, [third])
-
   useEffect(() => {
     if (fetchData) {
-      axios
-        .get("https://hub.dummyapis.com/employee?noofRecords=10&idStarts=1001")
-        .then((res) => {
-          console.log(res.data);
-          setIsLoading(false);
-          setProduct(res.data);
-        });
+      axios.get("http://localhost:8080/api/v1/employees").then((res) => {
+        console.log(res.data);
+        setIsLoading(false);
+        setFetchData(true);
+        setProduct(res.data);
+      });
     }
   }, [fetchData]);
 
@@ -36,10 +25,51 @@ export default function ProductPage() {
   //   );
   // }
 
+  async function handleFetch() {
+    const response = await axios.get("http://localhost:8080/api/v1/employees");
+    const data = await response.data;
+    const status = response.status;
+
+    console.log("Data fetched from DB:" + JSON.stringify(data));
+    // var myJSON = ;
+    console.log("Status from DB:" + status);
+  }
+
+  async function handleDelete(id) {
+    console.log(id + " deleted");
+    try {
+      const res = await axios.delete(
+        "http://localhost:8080/api/v1/employees/" + id
+      );
+      console.log(res.status);
+    } catch (error) {
+      if (error.response) {
+        // Request made but the server responded with an error
+        console.log(error.response.data);
+        console.log(error.response.status);
+      } else if (error.request) {
+        // Request made but no response is received from the server.
+        console.log(error.request);
+      } else {
+        // Error occurred while setting up the request
+        console.log("Error", error.message);
+      }
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <h3>Loading...</h3>
+      </>
+    );
+  }
+
   return (
     <div>
       {/* {product} */}
-      <button className="btn btn-primary" onClick={() => setFetchData(true)}>
+      {/* <button className="btn btn-primary" onClick={() => setFetchData(true)}> */}
+      <button className="btn btn-primary" onClick={handleFetch}>
         {/* <button
         className="btn btn-primary"
         onClick={() =>
@@ -54,6 +84,18 @@ export default function ProductPage() {
         }
       > */}
         Fetch Data
+      </button>
+
+      <button
+        className="btn btn-danger"
+        style={{
+          marginRight: "20px",
+        }}
+        onClick={() => {
+          handleDelete(4);
+        }}
+      >
+        Delete
       </button>
       <h3>Products list from API</h3>
       <table className="table">

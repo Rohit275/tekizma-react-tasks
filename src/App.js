@@ -1,6 +1,6 @@
 import "./App.css";
 // import Modal from "./components/Modal/Modal";
-import Todo from "./components/Todo/Todo";
+// import Todo from "./components/Todo/Todo";
 
 import { Route, Routes } from "react-router-dom";
 import AllMeetupsPage from "./pages/AllMeetups";

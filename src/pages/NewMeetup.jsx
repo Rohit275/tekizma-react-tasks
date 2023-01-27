@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import MeetupsForm from "../components/Meetups/NewMeetupForm";
@@ -11,7 +12,11 @@ function NewMeetupsPage() {
       <Card>
         <MeetupsForm
           onAddMeetup={(val) => {
-            console.log("printing in parent");
+            axios.post("http://localhost:8080/api/meetups", val).then((res) => {
+              console.log(res.status);
+            });
+
+            console.log("Added to db");
             console.log(val);
 
             navigate("/");
