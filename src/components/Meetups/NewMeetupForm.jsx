@@ -14,8 +14,9 @@ export default function MeetupsForm({ onAddMeetup }) {
     const image = imageInputRef.current.value;
     const address = addressInputRef.current.value;
     const description = descriptionInputRef.current.value;
+    const favorites = false;
 
-    const meetupData = { title, image, address, description };
+    const meetupData = { title, image, address, description, favorites };
 
     // const empData = {
     //   firstName: "Lionel",
@@ -23,7 +24,7 @@ export default function MeetupsForm({ onAddMeetup }) {
     //   email: "messi@mail.com",
     // };
 
-    console.log(meetupData);
+    // console.log(meetupData);
     onAddMeetup(meetupData);
   }
 

@@ -11,13 +11,15 @@ function NewMeetupsPage() {
       <h1>Add New Meetup</h1>
       <Card>
         <MeetupsForm
-          onAddMeetup={(val) => {
-            axios.post("http://localhost:8080/api/meetups", val).then((res) => {
-              console.log(res.status);
-            });
+          onAddMeetup={async (val) => {
+            await axios
+              .post("http://localhost:8080/api/meetups", val)
+              .then((res) => {
+                console.log(res.status);
+              });
 
-            console.log("Added to db");
-            console.log(val);
+            // console.log("Added to db");
+            // console.log(val);
 
             navigate("/");
           }}

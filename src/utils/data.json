@@ -1,0 +1,25 @@
+{
+  "DUMMY_DATA": [
+    {
+      "id": "ADI#12DF",
+      "title": "This is first meetup",
+      "image": "https://s3-media2.fl.yelpcdn.com/bphoto/ag__aRhV-ZXa0M6WB8Udcw/o.jpg",
+      "address": "Meetupstreet 5, 12345, Meetup city",
+      "description": "This is the first meetup after a long time"
+    },
+    {
+      "id": "ARUN#12DF",
+      "title": "This is first meetup",
+      "image": "https://s3-media2.fl.yelpcdn.com/bphoto/ag__aRhV-ZXa0M6WB8Udcw/o.jpg",
+      "address": "Meetupstreet 5, 12345, Meetup city",
+      "description": "This is the first meetup after a long time"
+    },
+    {
+      "id": "SAM#12DF",
+      "title": "This is first meetup",
+      "image": "https://s3-media2.fl.yelpcdn.com/bphoto/ag__aRhV-ZXa0M6WB8Udcw/o.jpg",
+      "address": "Meetupstreet 5, 12345, Meetup city",
+      "description": "This is the first meetup after a long time"
+    }
+  ]
+}
