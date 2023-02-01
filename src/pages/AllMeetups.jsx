@@ -1,35 +1,47 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 
-import empty from "../utils/no-data.svg";
+import { useNavigate } from "react-router-dom";
+
 import "./AllMeetups.css";
 
 import Like from "../components/icons/Like";
 import Delete from "../components/icons/Delete";
 import Edit from "../components/icons/Edit";
+import NoMeetup from "../utils/NoMeetups";
+
+import { getMeetups, deleteMeetup, updateMeetup } from "../services/api";
 
 function AllMeetupsPage() {
   const [meetups, setMeetups] = useState([]);
   const [isDeleted, setIsDeleted] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
-      const meetup = await axios.get("http://localhost:8080/api/meetups");
-      if (meetup.data.length !== 0) {
-        setMeetups(meetup.data);
-        setIsDeleted(false);
+      const res = await getMeetups();
+      if (res.error) {
+        console.log(res.error);
       } else {
-        setMeetups(null);
+        const meetup = res.data;
+        if (meetup.data.length !== 0) {
+          setMeetups(meetup.data);
+          setIsDeleted(false);
+        } else {
+          setMeetups(null);
+        }
       }
     };
-
     fetchData();
   }, [isDeleted]);
 
   async function handleDelete(id) {
-    await axios.delete("http://localhost:8080/api/meetups/" + id);
-    setIsDeleted(true);
-    // console.log("Trach clicked of id:" + id);
+    const res = await deleteMeetup(id);
+    if (res.error) {
+      console.log(res.error);
+    } else {
+      setIsDeleted(true);
+    }
   }
 
   async function handleFavorite(meetup) {
@@ -37,42 +49,30 @@ function AllMeetupsPage() {
     const target = { ...meetups[index] };
     target.favorite = !target.favorite;
 
-    await axios.put("http://localhost:8080/api/meetups/" + target.id, target);
+    const res = await updateMeetup(target);
+    if (res.error) {
+      console.log(res.error);
+    } else {
+      const newMeetups = [...meetups];
+      newMeetups[index] = target;
+      setMeetups(newMeetups);
+    }
+  }
 
-    const newMeetups = [...meetups];
-    newMeetups[index] = target;
-    // console.log(newMeetups[index]);
-    setMeetups(newMeetups);
+  function handleUpdate(meetup) {
+    // console.log(meetup);
+
+    // <Link to={`/update/${meetup.id}`} />;
+    navigate(`/update/${meetup.id}`);
   }
 
   if (!meetups) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <img
-          style={{
-            width: "500px",
-            height: "450px",
-          }}
-          alt="no-data"
-          src={empty}
-        />
-        <h4>No Meetups Found</h4>
-        <p style={{ opacity: "60%" }}>Try adding some new meetup</p>
-      </div>
-    );
+    return <NoMeetup />;
   }
 
   return (
     <div>
       <h1>All meetups</h1>
-      {/* <div className="card-group"> */}
       <div
         style={{
           display: "flex",
@@ -95,22 +95,21 @@ function AllMeetupsPage() {
                         onClick={() => handleFavorite(meetup)}
                       />
                     </span>
+                    {/* <br /> */}
                     <span>
                       <Delete
                         size="lg"
                         onClick={() => handleDelete(meetup.id)}
                       />
                     </span>
+                    {/* <br /> */}
                     <span>
-                      <Edit
-                        size="lg"
-                        onClick={() => console.log("clicked edit")}
-                      />
+                      <Edit size="lg" onClick={() => handleUpdate(meetup)} />
                     </span>
                   </div>
                 </div>
                 <div className="card-body">
-                  <h5 className="card-title">{meetup.title}</h5>
+                  <h5 className="card-title">{meetup.title}'s Meetup</h5>
                   <p className="card-text">{meetup.address}</p>
                 </div>
                 <div className="card-footer">

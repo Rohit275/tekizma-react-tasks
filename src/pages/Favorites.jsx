@@ -1,64 +1,51 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
-import fav_svg from "../utils/favorites.svg";
 
 import Like from "../components/icons/Like";
+import NoFavorites from "../utils/NoFavorites";
+
+import { getMeetups, updateMeetup } from "../services/api";
 
 function FavoritesPage() {
-  // fontawesome.library.add(faHeart);
-
-  const [favorites, setFavorites] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(true);
+  const [favorites, setFavorites] = useState([]);
+  const [favorite, toggleFavorite] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const favorite = await axios.get("http://localhost:8080/api/meetups");
-      const data = favorite.data.filter((curr) => curr.favorite);
-      if (data.length !== 0) {
-        setFavorites(data);
-        setIsFavorite(true);
+      const res = await getMeetups();
+
+      if (res.error) {
+        console.log(res.error);
       } else {
-        setFavorites(null);
+        const target = res.data;
+        const favorite = target.data.filter((curr) => curr.favorite);
+        if (favorite.length !== 0) {
+          setFavorites(favorite);
+          toggleFavorite(!favorite);
+        } else {
+          setFavorites(null);
+        }
       }
     };
     fetchData();
-  }, [isFavorite]);
+  }, [favorite]);
 
-  function handleFavorite(meetup) {
+  async function handleFavorite(meetup) {
     meetup.favorite = !meetup.favorite;
-    axios.put("http://localhost:8080/api/meetups/" + meetup.id, meetup);
-    setIsFavorite(false);
-    // setIsDeleted(true);
-    // console.log("Trach clicked of id:" + id);
+    const res = await updateMeetup(meetup);
+    if (res.error) {
+      console.log(res.error);
+    } else {
+      toggleFavorite(!favorite);
+    }
   }
 
-  if (favorites === null) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <img
-          style={{
-            width: "500px",
-            height: "450px",
-          }}
-          alt="no-data"
-          src={fav_svg}
-        />
-        <h4>Your favorite goes here</h4>
-        <p style={{ opacity: "60%" }}>Like some meetup</p>
-      </div>
-    );
+  if (!favorites) {
+    return <NoFavorites />;
   }
 
   return (
     <div>
-      <h1>All meetups</h1>
+      <h1>Your Favorites</h1>
       {/* <div className="card-group"> */}
       <div
         style={{
@@ -80,38 +67,17 @@ function FavoritesPage() {
 
                   <div className="icon__overlay ">
                     <span>
-                      {/* <FontAwesomeIcon
-                        className="font-icon"
-                        color="red"
-                        size="lg"
-                        icon={favorites ? heartSolid : heartRegular}
-                        onClick={() => handleFavorite(favorites)}
-                      /> */}
                       <Like
                         liked={favorites.favorite}
                         size="lg"
                         onClick={() => handleFavorite(favorites)}
                       />
                     </span>
-                    {/* <span>
-                      <FontAwesomeIcon
-                        className="font-icon"
-                        icon="fa-regular fa-trash-can"
-                        onClick={() => handleDelete(favorites.id)}
-                      />
-                    </span>
-                    <span>
-                      <FontAwesomeIcon
-                        className="font-icon"
-                        icon="fa-regular fa-pen-to-square"
-                      />
-                    </span> */}
                   </div>
                 </div>
                 <div className="card-body">
-                  <h5 className="card-title">{favorites.title}</h5>
+                  <h5 className="card-title">{favorites.title}'s Meetup</h5>
                   <p className="card-text">{favorites.address}</p>
-                  {/* <button className="btn btn-primary">Add to favourites</button> */}
                 </div>
                 <div className="card-footer">
                   <small className="text-muted">Last updated 3 mins ago</small>

@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import MeetupsForm from "../components/Meetups/NewMeetupForm";
-import Card from "../components/UI/Card";
+import MeetupsForm from "../components/Meetups/NewMeetup/NewMeetupForm";
+import Elevator from "../components/UI/elevator/Elevator";
 
 function NewMeetupsPage() {
   const navigate = useNavigate();
   return (
     <section>
       <h1>Add New Meetup</h1>
-      <Card>
+      <Elevator>
         <MeetupsForm
           onAddMeetup={async (val) => {
             await axios
@@ -24,7 +24,7 @@ function NewMeetupsPage() {
             navigate("/");
           }}
         />
-      </Card>
+      </Elevator>
     </section>
   );
 }

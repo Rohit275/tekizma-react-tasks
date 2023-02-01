@@ -72,7 +72,7 @@ export default function MeetupsForm({ onAddMeetup }) {
         ></textarea>
       </div>
       <div className={classes.actions}>
-        <button>Add Meetup</button>
+        <button>Add</button>
       </div>
     </form>
   );

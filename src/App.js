@@ -1,47 +1,28 @@
-import "./App.css";
-// import Modal from "./components/Modal/Modal";
-// import Todo from "./components/Todo/Todo";
-
 import { Route, Routes } from "react-router-dom";
+
+import "./App.css";
+
 import AllMeetupsPage from "./pages/AllMeetups";
 import NewMeetupsPage from "./pages/NewMeetup";
 import FavoritesPage from "./pages/Favorites";
+
 import Navbar from "./components/Navbar";
-import ProductPage from "./pages/ProductList";
-import MeetupItem from "./components/Meetups/MeetupItems";
+import MeetupItem from "./temp/Meetup/MeetupItems";
+import UpdateMeetup from "./components/Meetups/UpdateMeetup/UpdateMeetupForm";
 
 function App() {
+  // handleDelete = async () => {}
   return (
     <div>
       <Navbar />
       <Routes>
-        <Route
-          path="/"
-          element={
-            // <div className="m-2">
-            //   <h1
-            //     style={{
-            //       display: "flex",
-            //       marginBottom: "20px",
-            //       justifyContent: "center",
-            //       alignItems: "center",
-            //     }}
-            //   >
-            //     My Todo
-            //   </h1>
-            //   <Todo title="Buy sugar" content="Buy 1 kg of sugar from shop" />
-            //   <Todo title="Meet John" content="Meet at 5pm" />
-            //   <Todo title="Take meds" content="Take meds at 10pm" />
-            // </div>
-            <MeetupItem />
-          }
-        />
+        <Route path="/" element={<MeetupItem />} />
         <Route path="/all-meetups" element={<AllMeetupsPage />} />
 
         <Route path="/new-meetup" element={<NewMeetupsPage />} />
 
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/product" element={<ProductPage />} />
+        <Route path="/update/:id" element={<UpdateMeetup />} />
       </Routes>
     </div>
   );

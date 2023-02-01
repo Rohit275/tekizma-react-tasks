@@ -1,4 +1,4 @@
-import Card from "../UI/Card";
+import Elevator from "../../components/UI/elevator/Elevator";
 import "./MeetupItem.css";
 
 const DUMMY_DATA = [
@@ -36,7 +36,7 @@ function MeetupItem(props) {
     <>
       {DUMMY_DATA.map((data) => {
         return (
-          <Card key={data.id}>
+          <Elevator key={data.id}>
             <div className="box">
               <div className="row">
                 <div className="cell" style={{ width: "30%" }}>
@@ -57,7 +57,7 @@ function MeetupItem(props) {
                 To favourites
               </button>
             </div>
-          </Card>
+          </Elevator>
         );
       })}
     </>
